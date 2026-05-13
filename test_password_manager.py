@@ -37,7 +37,7 @@ def check_test(test_id, title, priority, input_data, expected_result, condition,
 
 # Clear report before execution
 def setup_module():
-    with open(REPORT_FILE, "w", encoding="utf-8") as report:
+    with open(REPORT_FILE, "w") as report:
         report.write("PASSWORD MANAGER TEST REPORT\n")
         report.write(f"Created at: {datetime.now()}\n\n")
 
