@@ -315,3 +315,135 @@ def test_website_should_not_be_empty_fail():
         condition,
         "Website field is empty"
     )
+def test_search_empty_website_input():
+    website = ""
+
+    test_data = {
+        "google.com": {
+            "email": "test@gmail.com",
+            "password": "Secret123!"
+        }
+    }
+
+    condition = website not in test_data
+
+    check_test(
+        "TC-17",
+        "Search with empty website input",
+        "High",
+        f"website='{website}'",
+        "System should not search with empty website field",
+        condition,
+        "Empty website was not found"
+    )
+
+
+def test_search_is_case_sensitive():
+    website = "Google.com"
+
+    test_data = {
+        "google.com": {
+            "email": "test@gmail.com",
+            "password": "Secret123!"
+        }
+    }
+
+    condition = website not in test_data
+
+    check_test(
+        "TC-18",
+        "Search is case sensitive",
+        "Medium",
+        f"website='{website}'",
+        "Search should handle different letter cases",
+        condition,
+        "Website was not found because of uppercase letter"
+    )
+
+
+def test_search_website_with_spaces():
+    website = " google.com "
+
+    test_data = {
+        "google.com": {
+            "email": "test@gmail.com",
+            "password": "Secret123!"
+        }
+    }
+
+    condition = website not in test_data
+
+    check_test(
+        "TC-19",
+        "Search website with extra spaces",
+        "Medium",
+        f"website='{website}'",
+        "Search should handle extra spaces before and after website",
+        condition,
+        "Website was not found because of extra spaces"
+    )
+
+
+def test_search_existing_website_with_special_characters():
+    website = "my-site_123.com"
+
+    test_data = {
+        "my-site_123.com": {
+            "email": "qa@test.com",
+            "password": "Strong123!"
+        }
+    }
+
+    condition = website in test_data
+
+    check_test(
+        "TC-20",
+        "Search website with special characters",
+        "Medium",
+        f"website='{website}'",
+        "System should find website with special characters",
+        condition,
+        "Website with special characters found"
+    )
+def test_search_existing_website():
+    website = "google.com"
+
+    test_data = {
+        "google.com": {
+            "email": "test@gmail.com",
+            "password": "Secret123!"
+        }
+    }
+
+    condition = website in test_data
+
+    check_test(
+        "TC-21",
+        "Search existing website",
+        "High",
+        f"website='{website}'",
+        "Website should be found in password data",
+        condition,
+        "Website found"
+    )
+def test_search_non_existing_website():
+    website = "facebook.com"
+
+    test_data = {
+        "google.com": {
+            "email": "test@gmail.com",
+            "password": "Secret123!"
+        }
+    }
+
+    condition = website not in test_data
+
+    check_test(
+        "TC-22",
+        "Search non-existing website",
+        "Medium",
+        f"website='{website}'",
+        "System should show that website was not found",
+        condition,
+        "Website not found"
+    )
